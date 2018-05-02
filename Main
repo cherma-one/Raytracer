@@ -1,0 +1,61 @@
+
+
+
+void setup()
+   {  
+    /** data type**/
+    Vector world;
+    Sphere kugel;
+    Ray ray;
+    Ray rayHit;
+    ArrayList<Ray> Hitting = new ArrayList<Ray>();
+
+    float t;
+    float range;
+    float viewX;
+    float viewY;
+    /** Init **/
+    
+  
+     
+     size(1024, 768);
+     kugel = new Sphere(width/2,height/2,800);
+     kugel._r=120;
+     world = new Vector(0,0,1);
+     background(0);
+     viewX = width;
+     viewY = height;
+     
+     
+     
+     /** loop **/
+     for(int i = 0; i <  viewX; i++)
+     {
+       for (int j = 0; j < viewY; j++)
+       {
+         ray= new Ray(i,j,0);   
+         t = ray.hit(ray, kugel, world);
+       
+      
+         
+         rayHit = new Ray(i,j,t);
+         rayHit = rayHit.location(rayHit, kugel);
+         range= ray.value(rayHit); //länge des Rays 
+         
+          if (range <= kugel._r)
+          {
+           
+            rayHit=rayHit.location(rayHit, kugel);
+      
+            
+          }
+          if (range < kugel._r)
+               {
+                 set(i,j,  color(255));            //if range < kugel._r                                                               //weiß färben
+               }
+       }
+   }
+   System.out.println(Hitting);
+   }
+
+    
